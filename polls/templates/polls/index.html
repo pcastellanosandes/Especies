@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de especies</title>
+</head>
+<body>
+<h1 align="center">Especies</h1>
+    {% for specie in species %}
+        <img src="{{specie.photoPath}}" width="400", height="300">
+    {% endfor %}
+</body>
+</html>
