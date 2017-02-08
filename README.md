@@ -1,4 +1,4 @@
-# python-getting-started
+# Especies
 
 A barebones Python app, which can easily be deployed to Heroku.
 
@@ -14,7 +14,7 @@ $ cd Especies
 
 $ pip install -r requirements.txt
 
-$ createdb python_getting_started
+$ createdb NaturalReserve
 
 $ python manage.py migrate
 $ python manage.py collectstatic
