@@ -5,9 +5,14 @@
     <title>Listado de especies</title>
 </head>
 <body>
-<h1 align="center">Especies</h1>
+<h1 align="center">Catálogo de Especies de la Reserva natural</h1>
     {% for specie in species %}
-        <img src="{{specie.imageFile}}" width="400", height="300">
+        <section align = "center">
+            <h2 >{{specie.name}}</h2>
+            <img src="{{specie.imageFile}}" width="400", height="300">
+            <div>{{specie.scientificName}}</div>
+             <p align="left">{{specie.description}}</p>
+        </section>
     {% endfor %}
 </body>
 </html>
