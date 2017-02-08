@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'especies.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'especies',
+        'NAME': 'NaturalReserve',
         'USER': 'sid',
         'PASSWORD': 'postgres',
         'HOST': 'localhost',

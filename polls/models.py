@@ -9,3 +9,11 @@ class Specie(models.Model):
     scientificName = models.CharField(max_length=50, null=True)
     description = models.CharField(max_length=1000, null=True)
     imageFile = models.ImageField(upload_to='images', null=True)
+
+
+class Comment(models.Model):
+    description = models.CharField(max_length=1000, null=False)
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=20, null=False)
