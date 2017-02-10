@@ -1,3 +1,9 @@
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{# Load CSS and Javascript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +11,34 @@
     <title>Listado de especies</title>
 </head>
 <body>
-<h1 align="center">Catálogo de Especies de la Reserva natural</h1>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{% url 'images:index' %}">Galeria</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if user.is_authenticated %}
+                        <li><a class="glyphicon glyphicon-user" href="{% url 'images:index' %}"> {{ user.username }}</a></li>
+                        <li><a class="glyphicon glyphicon-user" href="{% url 'images:logout' %}"> Logout</a></li>
+                    {% else %}
+                        <li><a href="{% url 'images:addUser' %}">Registro</a></li>
+                        <li><a class="glyphicon glyphicon-log-in" href="{% url 'images:login' %}"> Login</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <br><br>
+    <h1 align="center">Catálogo de Especies de la Reserva natural</h1>
     {% for specie in species %}
         <section align = "center">
             <h2 >{{specie.name}}</h2>
