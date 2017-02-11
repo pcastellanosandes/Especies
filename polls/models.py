@@ -7,7 +7,6 @@ from django.contrib.auth.forms import forms
 from django.forms import ModelForm
 
 
-
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     imageFile = models.ImageField(upload_to='images', null=True)
@@ -38,6 +37,7 @@ class Comment(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=20, null=False)
+
 
 class UserForm(ModelForm):
     username = forms.CharField(max_length=50)

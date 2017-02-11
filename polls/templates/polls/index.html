@@ -6,6 +6,7 @@
 {% bootstrap_javascript %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Listado de especies</title>
@@ -39,13 +40,14 @@
     </nav>
     <br><br>
     <h1 align="center">Catálogo de Especies de la Reserva natural</h1>
-    {% for specie in species %}
-        <section align = "center">
-            <h2 >{{specie.name}}</h2>
-            <img src="/{{specie.imageFile}}" width="400", height="300">
-            <div>{{specie.scientificName}}</div>
+     {% if user.is_authenticated %}
+     {% for specie in species %}
+        <section align = "center" display ="inline !important">
+            <h2>{{specie.name}}({{specie.scientificName}})</h2>
+            <img src="/{{specie.imageFile}}"/>
              <p align="left">{{specie.description}}</p>
         </section>
-    {% endfor %}
+     {% endfor %}
+     {% endif %}
 </body>
 </html>
