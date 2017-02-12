@@ -41,13 +41,14 @@
     <br><br>
     <h1 align="center">Catálogo de Especies de la Reserva natural</h1>
      {% if user.is_authenticated %}
-     {% for specie in species %}
-        <section align = "center" display ="inline !important">
-            <h2>{{specie.name}}({{specie.scientificName}})</h2>
-            <img src="/{{specie.imageFile}}"/>
-             <p align="left">{{specie.description}}</p>
-        </section>
-     {% endfor %}
+         {% for specie in species %}
+            <div class="col-md-4 col-sm-6 col-lg-3 well">
+                <h3>{{specie.name}} ({{specie.scientificName}})</h3>
+                <a href="{%url 'images:specie_information' id_specie=specie.pk%}">
+                    <img class ="img-responsive" src="/{{specie.imageFile}}"/>
+                </a>
+            </div>
+         {% endfor %}
      {% endif %}
 </body>
 </html>

@@ -65,3 +65,9 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse('images:index'))
+
+
+def specie_information(request, id_specie):
+    specie = Specie.objects.get(id=id_specie)
+    specie = {'specie': specie}
+    return render(request, 'polls/specie_information.html', specie)

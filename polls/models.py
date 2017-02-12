@@ -24,19 +24,21 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
 
 
 # Create your models here.
-class Specie(models.Model):
-    name = models.CharField(max_length=50, default="")
-    scientificName = models.CharField(max_length=50, null=True)
-    description = models.CharField(max_length=1000, null=True)
-    imageFile = models.ImageField(upload_to='images', null=True)
-
-
 class Comment(models.Model):
     description = models.CharField(max_length=1000, null=False)
 
 
 class Category(models.Model):
     name = models.CharField(max_length=20, null=False)
+
+
+class Specie(models.Model):
+    name = models.CharField(max_length=50, default="")
+    scientificName = models.CharField(max_length=50, null=True)
+    description = models.CharField(max_length=1000, null=True)
+    imageFile = models.ImageField(upload_to='images', null=True)
+    taxonomic_classification = models.CharField(max_length=50, null=True)
+    category = models.OneToOneField(Category, null=True)
 
 
 class UserForm(ModelForm):
