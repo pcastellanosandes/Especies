@@ -1,16 +1,45 @@
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{# Load CSS and Javascript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Información de la especie</title>
 </head>
-<body>
-<div class="col-md-4 col-sm-6 col-lg-3 well">
-    <h3>{{specie.name}} ({{specie.scientificName}})</h3>
-    <div>{{specie.taxonomic_classification}}</div>
-    <div>{{specie.category.name}}</div>
-    <img class ="img-responsive" src="/{{specie.imageFile}}"/>
-    <p>{{specie.description}} </p>
-</div>
+<body class="jumbotron">
+<table width="100%">
+    <tr>
+        <th>
+            <img class ="img-responsive" style="margin: auto;" src="/{{specie.imageFile}}"/>
+        </th>
+        <th>
+            <h1>{{specie.name}}</h1>
+            <table class="table">
+                <tr>
+                    <th>Clasificación taxonómica:</th>
+                    <th>{{specie.taxonomic_classification}}</th>
+                </tr>
+                <tr>
+                    <th>Nombre cientifico:</th>
+                    <th>{{specie.scientificName}}</th>
+                </tr>
+                <tr>
+                    <th>Categoría: </th>
+                    <th> {{specie.category.name}}s</th>
+                </tr>
+            </table>
+        </th>
+    </tr>
+</table>
+
+<p class="lead" align="justify"   style="margin: 20px 20px 20px 20px;">{{specie.description}} </p>
+
+{% buttons %}
+    <a href="{% url 'images:index' %}" class="btn btn-primary btn-lg" style="   margin: 20px;">Regresar</a>
+{% endbuttons %}
 </body>
 </html>
