@@ -77,14 +77,18 @@ WSGI_APPLICATION = 'especies.wsgi.application'
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd448pmtfhi6srm',
-        'USER': 'buaovqdonymxcq',
-        'PASSWORD': 'a4a6cf039f6c39424100d782ecd6a774849be28881ce930a5c1edb2a0451ba33',
-        'HOST': 'ec2-54-221-255-153.compute-1.amazonaws.com',
-        'PORT': '5432',
+  'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
+    #'default': {
+     #   'ENGINE': 'django.db.backends.postgresql_psycopg2',
+      #  'NAME': 'd448pmtfhi6srm',
+       # 'USER': 'buaovqdonymxcq',
+       # 'PASSWORD': 'a4a6cf039f6c39424100d782ecd6a774849be28881ce930a5c1edb2a0451ba33',
+       # 'HOST': 'ec2-54-221-255-153.compute-1.amazonaws.com',
+       # 'PORT': '5432',
+    #}
 }
 
 # Password validation
