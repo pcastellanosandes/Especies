@@ -11,11 +11,10 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
-#import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
@@ -80,10 +79,10 @@ WSGI_APPLICATION = 'especies.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'especies',
-        'USER': 'sid',
-        'PASSWORD': 'postgres',
-        'HOST': 'localhost',
+        'NAME': 'd448pmtfhi6srm',
+        'USER': 'buaovqdonymxcq',
+        'PASSWORD': 'a4a6cf039f6c39424100d782ecd6a774849be28881ce930a5c1edb2a0451ba33',
+        'HOST': 'ec2-54-221-255-153.compute-1.amazonaws.com',
         'PORT': '5432',
     }
 }
@@ -124,8 +123,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
+#STATIC_URL = '/images/'
+#STATIC_ROOT = 'staticfiles'
+#STATICFILES_DIRS = [
+#    os.path.join(BASE_DIR, 'images'),
+#]
+
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 STATIC_URL = '/images/'
-STATIC_ROOT = 'staticfiles'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'images'),
-]
+
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT, 'images'),
+)
