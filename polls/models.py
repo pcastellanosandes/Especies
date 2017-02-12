@@ -38,7 +38,7 @@ class Specie(models.Model):
     description = models.CharField(max_length=1000, null=True)
     imageFile = models.ImageField(upload_to='images', null=True)
     taxonomic_classification = models.CharField(max_length=50, null=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
 
 
 class UserForm(ModelForm):
