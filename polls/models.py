@@ -8,7 +8,7 @@ from django.forms import ModelForm
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     imageFile = models.ImageField(upload_to='images', null=True)
     interest = models.TextField(max_length=1000, null=True)
 
@@ -50,8 +50,8 @@ class UserForm(ModelForm):
     password2 = forms.CharField(widget=forms.PasswordInput())
 
     class Meta:
-        model = User
-        fields = ['username', 'first_name', 'last_name', 'email', 'password', 'password2']
+        model = Profile
+        fields = ['username', 'first_name', 'last_name', 'email', 'interest', 'imageFile', 'password', 'password2']
 
     def clean_username(self):
         """Comprueba que no exista un username igual en la bd"""
