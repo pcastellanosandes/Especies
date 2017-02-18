@@ -37,6 +37,21 @@
 </table>
 
 <p class="lead" align="justify"   style="margin: 20px 20px 20px 20px;">{{specie.description}} </p>
+<section>
+<h3>Comentarios</h3>
+{% for comment in specie.comments.all %}
+<div class="col-md-4 col-sm-6 col-lg-3 well" style="width:100%">
+    {{comment.description}}
+</div>
+{% endfor %}
+<form action="{%url 'images:addComment' id_specie=specie.pk %}" method="GET">
+    <textarea rows="10" cols="100" style="margin: 20px 20px 20px 20px;" name="comment" placeholder="Agregue su comentario"></textarea>
+    <input type="text" value="{{specie.pk}}"  name="id" style="display:none"/>
+    {% buttons %}
+        <input type="submit" value="Agregar comentario" class="btn btn-primary btn-lg" style="margin: 20px;"/>
+    {% endbuttons %}
+</form>
+</section>
 
 {% buttons %}
     <a href="{% url 'images:index' %}" class="btn btn-primary btn-lg" style="   margin: 20px;">Regresar</a>

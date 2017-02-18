@@ -3,8 +3,10 @@
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect
-from .models import Specie, UserForm, Profile
+from django.shortcuts import render, redirect, render_to_response
+from django.template import RequestContext
+
+from .models import Specie, UserForm, Profile, Comment
 from django.contrib.auth import authenticate, login, logout
 
 
@@ -76,6 +78,16 @@ def logout_view(request):
 def specie_information(request, id_specie):
     specie = Specie.objects.get(id=id_specie)
     specie = {'specie': specie}
+
     return render(request, 'polls/specie_information.html', specie)
 
 
+def add_comment(request, id_specie):
+
+    text = request.GET['comment']
+    specie = Specie.objects.get(id=id_specie)
+    comment = Comment(description=text, specie=specie)
+    comment.save()
+
+    specie = {'specie': specie}
+    return render(request, 'polls/specie_information.html', specie)
