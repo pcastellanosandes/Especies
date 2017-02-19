@@ -14,7 +14,8 @@ from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 def index(request):
     def post (self,request,*args,**kwargs): print (" campo ..."+request.POST['categorias'])
-    buscar = request.POST['categorias']
+    #buscar = request.POST['categorias']
+    buscar =1
     if buscar == '0' :
         species = Specie.objects.all();
     else :
