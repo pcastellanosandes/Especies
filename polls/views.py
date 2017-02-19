@@ -13,7 +13,7 @@ from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 def index(request):
-    buscar= 0
+    buscar= '0'
     if request.POST:
         buscar = request.POST.get('categorias')
     #buscar = 1
