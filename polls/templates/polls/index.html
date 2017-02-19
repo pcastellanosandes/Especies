@@ -38,6 +38,22 @@
             </div>
         </div>
     </nav>
+       <br><br>
+    <h1>Filtros </h1>
+    <div>
+        <form name="filtro" action="/polls/" method="post">{% csrf_token%}
+         Categorias :
+    <SELECT name="categorias" id="categorias">
+     <option value="0" SELECTED>Todos</option>
+     {% for ct in categories %}
+      <option value="{{ct.id }}">{{ct.name}}</option>
+     {% endfor %}
+    </SELECT>
+
+            <input type="Submit" name="buscar" value="Buscar" />
+        </form>
+    </div>
+
     <br><br>
     <h1 align="center">Catálogo de Especies de la Reserva natural</h1>
      {% if user.is_authenticated %}

@@ -6,14 +6,21 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, render_to_response
 from django.template import RequestContext
 
-from .models import Specie, UserForm, Profile, Comment
+
+from .models import Specie, UserForm, Profile, Comment,Category
 from django.contrib.auth import authenticate, login, logout
 
 
 # Create your views here.
 def index(request):
-    species = Specie.objects.all()
-    context = {'species': species}
+    def post (self,request,*args,**kwargs): print (" campo ..."+request.POST['categorias'])
+    buscar = request.POST['categorias']
+    if buscar == '0' :
+        species = Specie.objects.all();
+    else :
+        species = Specie.objects.filter(category_id=buscar)
+    categories = Category.objects.all()
+    context = {'species': species,'categories':categories }
     return render(request, 'polls/index.html', context)
 
 
