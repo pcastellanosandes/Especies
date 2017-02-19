@@ -26,7 +26,7 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
 # Create your models here.
 class Category(models.Model):
     name = models.CharField(max_length=20, null=False)
-
+    def __unicode__(self): return self.name
 
 class Specie(models.Model):
     name = models.CharField(max_length=50, default="")
