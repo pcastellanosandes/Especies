@@ -21,7 +21,7 @@ def index(request):
 def add_user_view(request):
     # Si es POST
     if request.method == 'POST':
-        form = UserForm(request.POST, request.FILES)
+        form = UserForm(request.POST)
         if form.is_valid():
             cleaned_data = form.cleaned_data
 
@@ -31,7 +31,7 @@ def add_user_view(request):
             last_name = cleaned_data.get('last_name')
             email = cleaned_data.get('email')
             interest = cleaned_data.get('interest')
-            image_file = form.cleaned_data['imageFile']
+            image_url = form.cleaned_data['imageURL']
 
             user = User.objects.create_user(username=username,
                                             password=password,
@@ -39,7 +39,7 @@ def add_user_view(request):
                                             last_name=last_name,
                                             email=email)
 
-            profile = Profile(user=user, interest=interest, imageFile=image_file)
+            profile = Profile(user=user, interest=interest, imageURL=image_url)
             profile.save()
 
             return HttpResponseRedirect(reverse('images:index'))

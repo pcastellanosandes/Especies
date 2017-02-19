@@ -45,7 +45,7 @@
             <div class="col-md-4 col-sm-6 col-lg-3 well">
                 <h3>{{specie.name}} ({{specie.scientificName}})</h3>
                 <a href="{%url 'images:specieInformation' id_specie=specie.pk%}">
-                    <img class ="img-responsive" src="/{{specie.imageFile}}"/>
+                    <img class ="img-responsive" src="{{specie.imageURL}}"/>
                 </a>
             </div>
          {% endfor %}

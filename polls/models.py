@@ -9,7 +9,7 @@ from django.forms import ModelForm
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    imageFile = models.ImageField(upload_to='images', null=True)
+    imageURL = models.CharField(max_length=1000, null=True)
     interest = models.TextField(max_length=1000, null=True)
 
     def __str__(self):  # __unicode__ for Python 2
@@ -32,7 +32,7 @@ class Specie(models.Model):
     name = models.CharField(max_length=50, default="")
     scientificName = models.CharField(max_length=50, null=True)
     description = models.CharField(max_length=1000, null=True)
-    imageFile = models.ImageField(upload_to='images', null=True)
+    imageURL = models.CharField(max_length=1000, null=True)
     taxonomic_classification = models.CharField(max_length=50, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
 
@@ -52,7 +52,7 @@ class UserForm(ModelForm):
 
     class Meta:
         model = Profile
-        fields = ['username', 'first_name', 'last_name', 'email', 'interest', 'imageFile', 'password', 'password2']
+        fields = ['username', 'first_name', 'last_name', 'email', 'interest', 'imageURL', 'password', 'password2']
 
     def clean_username(self):
         """Comprueba que no exista un username igual en la bd"""
