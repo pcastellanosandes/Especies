@@ -39,6 +39,7 @@
         </div>
     </nav>
        <br><br>
+    {% if user.is_authenticated %}
     <h1>Filtros </h1>
     <div>
         <form name="filtro" action="/polls/" method="post">{% csrf_token%}
@@ -49,11 +50,10 @@
       <option value="{{ct.id }}">{{ct.name}}</option>
      {% endfor %}
     </SELECT>
-
             <input type="Submit" name="buscar" value="Buscar" />
         </form>
     </div>
-
+    {%endif%}
     <br><br>
     <h1 align="center">Catálogo de Especies de la Reserva natural</h1>
      {% if user.is_authenticated %}
