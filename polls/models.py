@@ -76,3 +76,42 @@ class UserForm(ModelForm):
         if password != password2:
             raise forms.ValidationError('Los password no coinciden.')
         return password
+
+class UpdateUser(ModelForm):
+    username = forms.CharField(max_length=50, widget = forms.TextInput(attrs={'readonly':'readonly'}))
+    first_name = forms.CharField(max_length=20)
+    last_name = forms.CharField(max_length=20)
+    email = forms.EmailField()
+    class Meta:
+        model = Profile
+        fields = ['username', 'first_name', 'last_name', 'email']
+        #fields = ['username', 'first_name', 'last_name', 'email', 'interest', 'imageURL', 'password', 'password2']
+
+    def clean_username(self):
+        username = self.cleaned_data['username']
+        print (username)
+        return username
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        return email
+
+class UpdateProfile(ModelForm):
+    imageURL = models.CharField(max_length=1000, null=True)
+    interest = models.TextField(max_length=1000, null=True)
+
+    class Meta:
+        model = Profile
+        fields = ['interest', 'imageURL']
+        # fields = ['username', 'first_name', 'last_name', 'email', 'interest', 'imageURL', 'password', 'password2']
+
+    def clean_imageURL(self):
+        imageURL = self.cleaned_data['imageURL']
+        print(imageURL)
+        return imageURL
+
+    def clean_interest(self):
+        interest = self.cleaned_data['interest']
+        print(interest)
+        return interest
+

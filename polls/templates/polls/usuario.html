@@ -9,9 +9,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Listado de especies</title>
+    <title>Actualizar Usuario</title>
 </head>
 <body>
+{% block content %}
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -39,32 +40,24 @@
         </div>
     </nav>
        <br><br>
-    {% if user.is_authenticated %}
-    <h1>Filtros </h1>
-    <div>
-        <form name="filtro" action="/polls/" method="post">{% csrf_token%}
-         Categorias :
-    <SELECT name="categorias" id="categorias">
-     <option value="0" SELECTED>Todos</option>
-     {% for ct in categories %}
-      <option value="{{ct.id }}">{{ct.name}}</option>
-     {% endfor %}
-    </SELECT>
-            <input type="Submit" name="buscar" value="Buscar" />
+<div class="row">
+    <div class="col-md-6 col-sm-offset-3">
+        <div class="page-header">
+            <h2>Update Profile</h2>
+        </div>
+
+
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% bootstrap_form form_prf %}
+            {% buttons %}
+            <input type="submit" value="Update" class="btn btn-primary"/>
+            <a href="{% url 'images:index' %}" class="btn btn-primary">Cancelar</a>
+            {% endbuttons %}
         </form>
     </div>
-    {%endif%}
-    <br><br>
-    <h1 align="center">Catálogo de Especies de la Reserva natural</h1>
-     {% if user.is_authenticated %}
-         {% for specie in species %}
-            <div class="col-md-4 col-sm-6 col-lg-3 well">
-                <h3>{{specie.name}} ({{specie.scientificName}})</h3>
-                <a href="{%url 'images:specieInformation' id_specie=specie.pk%}">
-                    <img class ="img-responsive" src="{{specie.imageURL}}"/>
-                </a>
-            </div>
-         {% endfor %}
-     {% endif %}
+</div>
+{% endblock %}
 </body>
 </html>
