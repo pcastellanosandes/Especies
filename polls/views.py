@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect, render_to_response
 from django.template import RequestContext
 
 
-from .models import Specie, UserForm, Profile, Comment,Category
+from .models import Specie, UserForm, Profile, UpdateUser, UpdateProfile, Comment,Category
 from django.contrib.auth import authenticate, login, logout
 
 
@@ -60,6 +60,26 @@ def add_user_view(request):
     }
     return render(request, 'polls/registro.html', context)
 
+def update_user_view(request):
+    # Si es GET
+    username = request.user.username
+    user = User.objects.get(username=username)
+    profile = Profile.objects.get(user=user)
+    if request.method == 'GET':
+        form_user = UpdateUser(instance=user)
+        form_profile = UpdateProfile(instance=profile)
+    if request.method == 'POST':
+        form_user = UpdateUser(request.POST, instance=user)
+        form_profile = UpdateProfile(request.POST, instance=profile)
+        if form_profile.is_valid():
+            form_profile.save()
+        if form_user.is_valid():
+            form_user.save()
+
+    context = {
+        'form': form_user, 'form_prf': form_profile
+    }
+    return render(request, 'polls/usuario.html', context)
 
 def login_view(request):
     if request.user.is_authenticated():
