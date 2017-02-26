@@ -5,6 +5,9 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, render_to_response
 from django.template import RequestContext
+from email.mime.text import MIMEText
+from smtplib import SMTP
+import smtplib
 
 
 from .models import Specie, UserForm, Profile, UpdateUser, UpdateProfile, Comment,Category
@@ -115,6 +118,36 @@ def add_comment(request, id_specie):
 
     text = request.GET['comment']
     specie = Specie.objects.get(id=id_specie)
+    ######ENVIO MENSAJE #################
+    username = request.user.username
+    user = User.objects.get(username=username)
+
+    destinatarios = ["Usuario  <"+user.email+">","Integrante1 <pa.castellanos11@uniandes.edu.co>"]
+    emisor = "grupo5agiles@gmail.com"
+    receptor = destinatarios
+
+    # Configuracion del mail
+    html ="<th>Nuevo Comentario</th>"
+    html += "<table>"
+    html += "<tr><td><font color='red'>Se ha agregado un nuevo Comentario desde el Usuario "+user.username+" :</font> </td></tr>"
+    html += "<tr><td><font color='blue'>Especie : "+specie.name+"<br> Comentario : "+text+"<br></font></td></tr>"
+    html += "<tr><td><b><font color='red'>Grupo 5 Procesos Agiles</font><b></td></tr>"
+    html += "</table>"
+    mensaje = MIMEText(html,'html')
+    mensaje['From'] = emisor
+    mensaje['To'] = ', '.join(receptor)
+    mensaje['Subject'] = "Notificacion Agregar Comentario Usuario "+user.username
+    # Nos conectamos al servidor SMTP de Gmail
+    serverSMTP = smtplib.SMTP('smtp.gmail.com', 587)
+    serverSMTP.ehlo()
+    serverSMTP.starttls()
+    serverSMTP.ehlo()
+    serverSMTP.login(emisor, "Agiles123")
+    serverSMTP.sendmail(emisor, receptor, mensaje.as_string())
+    # Cerramos la conexion
+    serverSMTP.close()
+    ######ENVIO MENSAJE #################
+
     comment = Comment(description=text, specie=specie)
     comment.save()
 
