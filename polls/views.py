@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 # from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.core import serializers
 from django.core.urlresolvers import reverse
+from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, render_to_response
 from django.template import RequestContext
+from django.views.decorators.csrf import csrf_exempt
 from email.mime.text import MIMEText
 from smtplib import SMTP
 import smtplib
@@ -106,7 +109,6 @@ def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse('images:index'))
 
-
 def specie_information(request, id_specie):
     specie = Specie.objects.get(id=id_specie)
     specie = {'specie': specie}
@@ -153,3 +155,12 @@ def add_comment(request, id_specie):
 
     specie = {'specie': specie}
     return render(request, 'polls/specie_information.html', specie)
+
+@csrf_exempt
+def specie_information_rest(request, id_specie):
+    specie = Specie.objects.get(id=id_specie)
+    #specie = {'specie': specie}
+
+    return HttpResponse(serializers.serialize("json", [specie]))
+    #return render(request, 'polls/specie_information.html', specie)
+
