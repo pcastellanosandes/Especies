@@ -12,7 +12,6 @@ from email.mime.text import MIMEText
 from smtplib import SMTP
 import smtplib
 
-
 from .models import Specie, UserForm, Profile, UpdateUser, UpdateProfile, Comment,Category
 from django.contrib.auth import authenticate, login, logout
 
@@ -159,8 +158,14 @@ def add_comment(request, id_specie):
 @csrf_exempt
 def specie_information_rest(request, id_specie):
     specie = Specie.objects.get(id=id_specie)
-    #specie = {'specie': specie}
-
     return HttpResponse(serializers.serialize("json", [specie]))
-    #return render(request, 'polls/specie_information.html', specie)
 
+def specie_information_html(request, id_specie):
+    return render(request, 'polls/specie_information_rest.html', {'idSpecie':id_specie})
+
+@csrf_exempt
+def specie_comments_rest(request, id_specie):
+    comments = Comment.objects.filter(specie_id=id_specie)
+    print comments
+
+    return HttpResponse(serializers.serialize("json", comments))

@@ -11,5 +11,7 @@ urlpatterns = [
     url(r'^specie_information/(?P<id_specie>\d+)/$', views.specie_information, name='specieInformation'),
     url(r'^add_comment/(?P<id_specie>\d+)/$', views.add_comment, name='addComment'),
 #/(?P<id_specie>\d+)/(?P<text_comment>[\w\-]+)
-    url(r'^specie_information_rest/(?P<id_specie>\d+)/$', views.specie_information, name='specieInformationRest'),
+    url(r'^specie_information_rest/(?P<id_specie>\d+)/$', views.specie_information_rest, name='specieInformationRest'),
+    url(r'^specie_information_html/(?P<id_specie>\d+)/$', views.specie_information_html, name='specieInformationHtml'),
+    url(r'^specie_comments_rest/(?P<id_specie>\d+)/$', views.specie_comments_rest, name='specieCommentsRest'),
 ]

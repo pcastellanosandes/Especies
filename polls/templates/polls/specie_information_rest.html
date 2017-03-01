@@ -8,93 +8,66 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
-        (function() {
-            $.getJSON("{%url 'images:specieInformation' id_specie=specie.pk%}").done(function(data) {
+        var loadSpecies = function() {
+            //var idSpecie = $("#id").value;
+            $.getJSON("{%url 'images:specieInformationRest' id_specie=idSpecie%}").done(function(data) {
                 $.each(data, function(i, item) {
-                    $("#tablaespecie").prepend();
+                    $("#tablaespecie").prepend(
                     '<table width="100%"><tr><th><img class ="img-responsive" style="margin: auto;" src="' + item.fields.imageURL +
                     '"/></th><th><h1>' + item.fields.name +
                     '</h1><table class="table"><tr><th>Clasificación taxonómica:</th><th>' + item.fields.taxonomic_classification +
                     '</th></tr><tr><th>Nombre cientifico:</th><th>' + item.fields.scientificName +
                     '</th></tr><tr><th>Categoría: </th><th> ' + item.fields.category.name +
-                    's</th></tr></table></th></tr></table>'
+                    's</th></tr></table></th></tr></table>' +
+                    '<p class="lead" align="justify"   style="margin: 20px 20px 20px 20px;">' + item.fields.description +
+                    '</p>'
+                    );
                 });
             });
-        });
+        };
+        $("#tablaespecie").ready(loadSpecies);
+
+        var loadComments = function() {
+            $.getJSON("{%url 'images:specieCommentsRest' id_specie=idSpecie%}").done(function(data) {
+                $.each(data, function(i, item) {
+                    $("#commentsespecie").prepend(
+                    '<div class="col-md-4 col-sm-6 col-lg-3 well" style="width:100%">' + item.fields.description +
+                    '</div>'
+                    );
+                });
+            });
+        };
+        $("#commentsespecie").ready(loadComments);
     </script>
 </head>
 <body class="jumbotron">
 <div class="row" id="tablaespecie"></div>
-<!--
-<table width="100%">
-    <tr>
-        <th>
-            <img class ="img-responsive" style="margin: auto;" src="{{specie.imageURL}}"/>
-        </th>
-        <th>
-            <h1>{{specie.name}}</h1>
-            <table class="table">
-                <tr>
-                    <th>Clasificación taxonómica:</th>
-                    <th>{{specie.taxonomic_classification}}</th>
-                </tr>
-                <tr>
-                    <th>Nombre cientifico:</th>
-                    <th>{{specie.scientificName}}</th>
-                </tr>
-                <tr>
-                    <th>Categoría: </th>
-                    <th> {{specie.category.name}}s</th>
-                </tr>
-            </table>
-        </th>
-    </tr>
-</table>
--->
-<p class="lead" align="justify"   style="margin: 20px 20px 20px 20px;">{{specie.description}} </p>
 <section>
-<h3>Comentarios</h3>
-{% for comment in specie.comments.all %}
-<div class="col-md-4 col-sm-6 col-lg-3 well" style="width:100%">
-    {{comment.description}}
-</div>
-{% endfor %}
+    <h3>Comentarios</h3>
+    <div class="row" id="commentsespecie"></div>
 
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#addCommentModal">Agregar Comentario</button>
+    <div id="addCommentModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
 
-<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#addCommentModal">Agregar Comentario</button>
-<div id="addCommentModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Nuevo Comentario</h4>
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Nuevo Comentario</h4>
+          </div>
+          <div class="modal-body">
+            <form action="{%url 'images:addComment' id_specie=idSpecie %}" method="GET">
+                <textarea rows="10" cols="70" style="margin: 20px 20px 20px 20px;" name="comment" placeholder="Agregue su comentario"></textarea>
+                <input type="text" value="{{idSpecie}}"  name="id" style="display:none"/>
+                <div class="modal-footer">
+                    <input type="submit" value="Agregar" class="btn btn-primary btn-lg" style="margin: 20px;"/>
+                </div>
+            </form>
+          </div>
+        </div>
       </div>
-      <div class="modal-body">
-        <form action="{%url 'images:addComment' id_specie=specie.pk %}" method="GET">
-            <textarea rows="10" cols="70" style="margin: 20px 20px 20px 20px;" name="comment" placeholder="Agregue su comentario"></textarea>
-            <input type="text" value="{{specie.pk}}"  name="id" style="display:none"/>
-            <div class="modal-footer">
-                <input type="submit" value="Agregar" class="btn btn-primary btn-lg" style="margin: 20px;"/>
-            </div>
-        </form>
-
     </div>
-  </div>
-</div>
-
 </section>
-
-{% buttons %}
-    <a href="{% url 'images:index' %}" class="btn btn-primary btn-lg" style="   margin: 20px;">Regresar</a>
-{% endbuttons %}
-
-
-
-
 </body>
-
-
-
 </html>
